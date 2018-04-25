@@ -123,6 +123,14 @@ public class Model {
 			if (myCell.topRightOuterEdge != null) { myCell.topRightOuterEdge.edgeBeingDebugged = myCellSelection.topRightOuterEdge; }
 			if (myCell.bottomLeftOuterEdge != null) { myCell.bottomLeftOuterEdge.edgeBeingDebugged = myCellSelection.bottomLeftOuterEdge; }
 			if (myCell.bottomRightOuterEdge != null) { myCell.bottomRightOuterEdge.edgeBeingDebugged = myCellSelection.bottomRightOuterEdge; }
+			
+			if (myCell.leftCell != null) { myCell.leftCell.cellBeingDebugged = myCellSelection.leftCell; }
+			if (myCell.rightCell != null) { myCell.rightCell.cellBeingDebugged = myCellSelection.rightCell; }
+			if (myCell.topRightCell != null) { myCell.topRightCell.cellBeingDebugged = myCellSelection.topRightCell; }
+			if (myCell.topLeftCell != null) { myCell.topLeftCell.cellBeingDebugged = myCellSelection.topLeftCell; }
+			if (myCell.bottomLeftCell != null) { myCell.bottomLeftCell.cellBeingDebugged = myCellSelection.bottomLeftCell; }
+			if (myCell.bottomRightCell != null) { myCell.bottomRightCell.cellBeingDebugged = myCellSelection.bottomRightCell; }
+			
 		} else {
 			System.out.println("could not find cell with ID " + cellID);
 		}
@@ -135,6 +143,10 @@ public class Model {
 		
 		for (Map.Entry<Integer, Node> node : nodes.entrySet()) {
 			node.getValue().nodeBeingDebugged = false;
+		} 
+		
+		for (Map.Entry<Integer, Cell> cell : cells.entrySet()) {
+			cell.getValue().cellBeingDebugged = false;
 		} 
 	}
 }

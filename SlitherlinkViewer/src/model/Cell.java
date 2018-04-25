@@ -14,34 +14,35 @@ public class Cell {
 	public int cellID;
 	
 	Model model;
+	public boolean cellBeingDebugged = false;
 	
-	PositiveEdge topLeftEdge = null;
-	PositiveEdge bottomRightEdge = null;
-	VerticalEdge leftEdge = null; 
-	VerticalEdge rightEdge = null;
-	NegativeEdge bottomLeftEdge = null;
-	NegativeEdge topRightEdge = null;
+	public PositiveEdge topLeftEdge = null;
+	public PositiveEdge bottomRightEdge = null;
+	public VerticalEdge leftEdge = null; 
+	public VerticalEdge rightEdge = null;
+	public NegativeEdge bottomLeftEdge = null;
+	public NegativeEdge topRightEdge = null;
 	
-	PositiveEdge topRightOuterEdge = null;
-	PositiveEdge bottomLeftOuterEdge = null;
-	VerticalEdge topOuterEdge = null; 
-	VerticalEdge bottomOuterEdge = null;
-	NegativeEdge bottomRightOuterEdge = null;
-	NegativeEdge topLeftOuterEdge = null;
+	public PositiveEdge topRightOuterEdge = null;
+	public PositiveEdge bottomLeftOuterEdge = null;
+	public VerticalEdge topOuterEdge = null; 
+	public VerticalEdge bottomOuterEdge = null;
+	public NegativeEdge bottomRightOuterEdge = null;
+	public NegativeEdge topLeftOuterEdge = null;
 	
-	Cell rightCell = null;
-	Cell leftCell = null;
-	Cell topRightCell = null;
-	Cell topLeftCell = null;
-	Cell bottomRightCell = null;
-	Cell bottomLeftCell = null;
+	public Cell rightCell = null;
+	public Cell leftCell = null;
+	public Cell topRightCell = null;
+	public Cell topLeftCell = null;
+	public Cell bottomRightCell = null;
+	public Cell bottomLeftCell = null;
 	
-	UpNode topNode = null;
-	UpNode bottomLeftNode = null;
-	UpNode bottomRightNode = null;
-	DownNode bottomNode = null;
-	DownNode topLeftNode = null;
-	DownNode topRightNode = null;
+	public UpNode topNode = null;
+	public UpNode bottomLeftNode = null;
+	public UpNode bottomRightNode = null;
+	public DownNode bottomNode = null;
+	public DownNode topLeftNode = null;
+	public DownNode topRightNode = null;
 		
 	
 	public Cell(Model aModel, String generationType) {

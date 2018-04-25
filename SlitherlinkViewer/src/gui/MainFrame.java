@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
 	public Model model;
-	private JTextField textField;
+	private JTextField cellIdTextField;
 	public ArrayList<JToggleButton> cellDebugButtons;
 	public CellSelection cellSelection;
 	public int currentCellID = -1;
@@ -58,6 +58,13 @@ public class MainFrame extends JFrame {
 	JToggleButton topRightNodeButton;
 	JToggleButton bottomLeftNodeButton;
 	JToggleButton bottomRightNodeButton;
+	
+	JToggleButton leftCellButton;
+	JToggleButton rightCellButton;
+	JToggleButton topLeftCellButton;
+	JToggleButton topRightCellButton;
+	JToggleButton bottomLeftCellButton;
+	JToggleButton bottomRightCellButton;
 	
 	public MainFrame(Model model) {
 		
@@ -145,10 +152,15 @@ public class MainFrame extends JFrame {
 			} 
 		} );	
 		
-		JToggleButton tglbtnO = new JToggleButton("O");
-		tglbtnO.setBounds(43, 187, 50, 50);
-		panel.add(tglbtnO);
-		cellDebugButtons.add(tglbtnO);
+		leftCellButton = new JToggleButton("O");
+		leftCellButton.setBounds(43, 187, 50, 50);
+		panel.add(leftCellButton);
+		cellDebugButtons.add(leftCellButton);
+		leftCellButton.addActionListener(new ActionListener() { 
+				public void actionPerformed(ActionEvent e) { 
+					updateCellID();
+			} 
+		} );
 		
 		topLeftOuterEdgeButton = new JToggleButton("\\");
 		topLeftOuterEdgeButton.setBounds(58, 99, 42, 41);
@@ -272,30 +284,55 @@ public class MainFrame extends JFrame {
 			} 
 		} );
 		
-		JToggleButton toggleButton_17 = new JToggleButton("O");
-		toggleButton_17.setBounds(285, 29, 50, 50);
-		panel.add(toggleButton_17);
-		cellDebugButtons.add(toggleButton_17);
+		topRightCellButton = new JToggleButton("O");
+		topRightCellButton.setBounds(285, 29, 50, 50);
+		panel.add(topRightCellButton);
+		cellDebugButtons.add(topRightCellButton);
+		topRightCellButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
 		
-		JToggleButton toggleButton_18 = new JToggleButton("O");
-		toggleButton_18.setBounds(76, 29, 50, 50);
-		panel.add(toggleButton_18);
-		cellDebugButtons.add(toggleButton_18);
+		topLeftCellButton = new JToggleButton("O");
+		topLeftCellButton.setBounds(76, 29, 50, 50);
+		panel.add(topLeftCellButton);
+		cellDebugButtons.add(topLeftCellButton);
+		topLeftCellButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
 		
-		JToggleButton toggleButton_19 = new JToggleButton("O");
-		toggleButton_19.setBounds(76, 343, 50, 50);
-		panel.add(toggleButton_19);
-		cellDebugButtons.add(toggleButton_19);
+		bottomLeftCellButton = new JToggleButton("O");
+		bottomLeftCellButton.setBounds(76, 343, 50, 50);
+		panel.add(bottomLeftCellButton);
+		cellDebugButtons.add(bottomLeftCellButton);
+		bottomLeftCellButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
 		
-		JToggleButton toggleButton_20 = new JToggleButton("O");
-		toggleButton_20.setBounds(285, 345, 50, 50);
-		panel.add(toggleButton_20);
-		cellDebugButtons.add(toggleButton_20);
+		bottomRightCellButton = new JToggleButton("O");
+		bottomRightCellButton.setBounds(285, 345, 50, 50);
+		panel.add(bottomRightCellButton);
+		cellDebugButtons.add(bottomRightCellButton);
+		bottomRightCellButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
 		
-		JToggleButton toggleButton_21 = new JToggleButton("O");
-		toggleButton_21.setBounds(316, 187, 50, 50);
-		panel.add(toggleButton_21);
-		cellDebugButtons.add(toggleButton_21);
+		rightCellButton = new JToggleButton("O");
+		rightCellButton.setBounds(316, 187, 50, 50);
+		panel.add(rightCellButton);
+		cellDebugButtons.add(rightCellButton);
+		rightCellButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
 		
 		JToggleButton toggleButton_22 = new JToggleButton("O");
 		toggleButton_22.setBounds(186, 187, 50, 50);
@@ -330,11 +367,11 @@ public class MainFrame extends JFrame {
 			} 
 		} );
 		
-		textField = new JTextField();
-		textField.setBounds(168, 488, 112, 33);
-		panel.add(textField);
-		textField.setColumns(10);
-				textField.getDocument().addDocumentListener(new DocumentListener() {
+		cellIdTextField = new JTextField("2");
+		cellIdTextField.setBounds(168, 488, 112, 33);
+		panel.add(cellIdTextField);
+		cellIdTextField.setColumns(10);
+				cellIdTextField.getDocument().addDocumentListener(new DocumentListener() {
 				@Override
 				public void changedUpdate(DocumentEvent arg0) {
 					updateCellID();		
@@ -379,6 +416,7 @@ public class MainFrame extends JFrame {
 		this.setVisible(true);
 		this.setResizable(false);
 		this.bufferedCanvas.start();
+		this.updateCellID();
 		
 	}
 	
@@ -397,12 +435,12 @@ public class MainFrame extends JFrame {
 		cellSelection.bottomRightOuterEdge = !bottomRightOuterEdgeButton.isSelected();
 		cellSelection.topLeftOuterEdge = !topLeftOuterEdgeButton.isSelected();
 		
-		cellSelection.rightCell = false;
-		cellSelection.leftCell = false;
-		cellSelection.topRightCell = false;
-		cellSelection.topLeftCell = false;
-		cellSelection.bottomRightCell = false;
-		cellSelection.bottomLeftCell = false;
+		cellSelection.rightCell = !rightCellButton.isSelected();
+		cellSelection.leftCell = !leftCellButton.isSelected();
+		cellSelection.topRightCell = !topRightCellButton.isSelected();
+		cellSelection.topLeftCell = !topLeftCellButton.isSelected();
+		cellSelection.bottomRightCell = !bottomRightCellButton.isSelected();
+		cellSelection.bottomLeftCell = !bottomLeftCellButton.isSelected();
 		
 		cellSelection.topNode = !topNodeButton.isSelected();
 		cellSelection.bottomLeftNode = !bottomLeftNodeButton.isSelected();
@@ -414,12 +452,11 @@ public class MainFrame extends JFrame {
 	
 	public void updateCellID() {
 		try {
-			currentCellID = Integer.parseInt(textField.getText());
+			currentCellID = Integer.parseInt(cellIdTextField.getText());
 			updateCellSelection();
 			model.debugCell(currentCellID, cellSelection, bufferedCanvas);
 		} catch	(NumberFormatException nfe) {
 			currentCellID = -1;
-			System.out.println("currentCellID : format error");
 		}
 		
 		
