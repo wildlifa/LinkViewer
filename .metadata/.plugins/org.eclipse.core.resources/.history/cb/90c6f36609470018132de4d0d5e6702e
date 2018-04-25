@@ -1,0 +1,9 @@
+package model;
+
+public class PositiveEdge extends Edge {
+
+	public PositiveEdge() {
+		edgeID = countID;
+		countID++;		
+	}
+}

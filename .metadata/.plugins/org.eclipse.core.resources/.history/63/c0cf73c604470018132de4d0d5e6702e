@@ -1,0 +1,16 @@
+package model;
+
+public class UpNode extends Node {
+	
+	public VerticalEdge topEdge = null;
+	public PositiveEdge bottomLeftEdge = null;
+	public NegativeEdge bottomRightEdge = null;
+	
+	public UpNode(int x, int y) {
+		nodeID = countID;
+		countID++;
+		this.x = (float)x;
+		this.y = y;
+	}
+
+}

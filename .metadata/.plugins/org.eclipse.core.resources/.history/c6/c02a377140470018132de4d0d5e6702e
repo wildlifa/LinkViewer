@@ -1,0 +1,28 @@
+package model;
+
+import java.util.ArrayList;
+
+public class Model {
+
+	int diameter = 0;
+	public ArrayList<Cell> cells = new ArrayList<Cell>();
+	public ArrayList<Edge> edges = new ArrayList<Edge>();
+	public ArrayList<Node> nodes = new ArrayList<Node>();
+	
+	public Model(int diameter) {
+		
+		@SuppressWarnings("unused")
+		Cell initialCell = new Cell(this, "0");
+		Cell currentCell = initialCell;
+		this.diameter = diameter;
+		for (int n = 1; n < diameter; n++) {
+			System.out.println(n);
+			
+		}
+	}
+	
+	private Cell rightToLeftGrowth(Cell currentCell) {
+		return currentCell;
+		
+	}
+}

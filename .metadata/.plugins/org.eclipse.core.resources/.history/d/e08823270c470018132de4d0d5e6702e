@@ -1,0 +1,15 @@
+package model;
+
+public class NegativeEdge extends Edge {
+	
+	public NegativeEdge(Model model, Node node1, Node node2) {
+		edgeID = countID;
+		countID++;
+		
+		this.model = model;
+		this.model.edges.add(this);
+		
+		this.node1 = node1;
+		this.node2 = node2;
+	}
+}

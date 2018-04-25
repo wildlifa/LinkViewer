@@ -1,0 +1,10 @@
+package model;
+
+public abstract class Edge {
+	
+	protected static int countID = 0;
+	public int edgeID;
+	
+	Model model;
+
+}

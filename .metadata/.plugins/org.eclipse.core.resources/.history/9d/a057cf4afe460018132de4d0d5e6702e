@@ -1,0 +1,46 @@
+package gui;
+
+import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
+
+import model.Edge;
+import model.Model;
+
+@SuppressWarnings("serial")
+public class InteractiveCanvas extends Canvas {
+	
+	public Model model;
+	
+	public InteractiveCanvas(Model model){
+		this.model = model;
+		repaint();
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		Graphics2D gg = (Graphics2D)g;
+
+		gg.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+//		gg.setStroke(new BasicStroke(1));
+		gg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+		
+		gg.setPaint(Color.WHITE);
+		gg.fill(new Rectangle2D.Double(0, 0, 600, 600));
+		
+		gg.scale(5, 5);
+		gg.translate(10, 10);
+		gg.setPaint(Color.BLACK);
+		for (Edge edge : model.edges) {
+		    gg.drawLine((int)edge.getX1(), (int)edge.getY1(), (int)edge.getX2(), (int)edge.getY2());
+		    System.out.println("drawing a line");
+		}
+
+	}
+}

@@ -1,0 +1,10 @@
+package model;
+
+public class DownNode extends Node{
+	
+	public DownNode() {
+		nodeID = countID;
+		countID++;		
+	}
+
+}

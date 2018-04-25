@@ -1,0 +1,14 @@
+package model;
+
+public class DownNode extends Node{
+	
+	public VerticalEdge bottomEdge = null;
+	public PositiveEdge topRightEdge = null;
+	public NegativeEdge topLeftEdge = null;
+	
+	public DownNode() {
+		nodeID = countID;
+		countID++;		
+	}
+
+}

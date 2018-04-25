@@ -1,0 +1,10 @@
+package model;
+
+public class VerticalEdge extends Edge {
+	
+	public VerticalEdge() {
+		edgeID = countID;
+		countID++;
+	}
+
+}

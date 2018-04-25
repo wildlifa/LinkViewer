@@ -1,0 +1,13 @@
+package model;
+
+public class Edge {
+	float x1, y1, x2, y2;
+	
+	public Edge() {
+		this.x1 = 0.0f;
+		this.y1 = 0.0f;
+		this.x2 = 0.0f;
+		this.y2 = 0.0f;
+	}
+
+}
