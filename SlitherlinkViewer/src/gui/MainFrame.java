@@ -376,7 +376,6 @@ public class MainFrame extends JFrame {
 	public void updateCellID() {
 		try {
 			currentCellID = Integer.parseInt(textField.getText());
-//			System.out.println(currentCellID);
 			updateCellSelection();
 			model.debugCell(currentCellID, cellSelection, bufferedCanvas);
 		} catch	(NumberFormatException nfe) {
