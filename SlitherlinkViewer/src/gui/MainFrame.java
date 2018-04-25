@@ -35,7 +35,8 @@ public class MainFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	InteractiveCanvas canvas;
+
+	BufferedCanvas bufferedCanvas;
 	
 	JToggleButton leftEdgeButton;
 	JToggleButton topLeftEdgeButton;
@@ -52,6 +53,7 @@ public class MainFrame extends JFrame {
 	JToggleButton bottomRightOuterEdgeButton;
 	
 	public MainFrame(Model model) {
+		
 		this.model = model;
 		cellSelection = new CellSelection();
 		
@@ -323,15 +325,22 @@ public class MainFrame extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("node debug", null, panel_2, null);
+		
+		bufferedCanvas = new BufferedCanvas(model);
+		bufferedCanvas.setBackground(Color.WHITE);
+		bufferedCanvas.setBounds(30, 30, 600, 600);
+		contentPane.add(bufferedCanvas);
 
 		
-		canvas = new InteractiveCanvas(this.model);
-		canvas.setBounds(30, 30, 600, 600);
-		contentPane.add(canvas);
+//		canvas = new InteractiveCanvas(this.model);
+//		canvas.setBounds(30, 30, 600, 600);
+//		contentPane.add(canvas);
 		
         this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setResizable(false);
+		this.bufferedCanvas.start();
+		
 	}
 	
 	private void updateCellSelection() {
@@ -369,7 +378,7 @@ public class MainFrame extends JFrame {
 			currentCellID = Integer.parseInt(textField.getText());
 //			System.out.println(currentCellID);
 			updateCellSelection();
-			model.debugCell(currentCellID, cellSelection, canvas);
+			model.debugCell(currentCellID, cellSelection, bufferedCanvas);
 		} catch	(NumberFormatException nfe) {
 			currentCellID = -1;
 			System.out.println("currentCellID : format error");
@@ -377,5 +386,4 @@ public class MainFrame extends JFrame {
 		
 		
 	}
-
 }

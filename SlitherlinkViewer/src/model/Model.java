@@ -10,12 +10,12 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+import gui.BufferedCanvas;
 import gui.CellSelection;
-import gui.InteractiveCanvas;
 
 public class Model {
 	
-	InteractiveCanvas canvas;
+	BufferedCanvas canvas;
 
 	int diameter = 0;
 	public HashMap<Integer, Cell> cells = new HashMap<Integer, Cell>();
@@ -98,7 +98,7 @@ public class Model {
 		
 	}
 	
-	public void debugCell(int cellID, CellSelection myCellSelection, InteractiveCanvas myCanvas) {
+	public void debugCell(int cellID, CellSelection myCellSelection, BufferedCanvas myCanvas) {
 		canvas = myCanvas;
 		resetDebugColors();
 		if (cells.get(cellID) != null) {
@@ -118,7 +118,6 @@ public class Model {
 		} else {
 			System.out.println("could not find cell with ID " + cellID);
 		}
-		canvas.repaint();		
 	}
 	
 	public void resetDebugColors() {
