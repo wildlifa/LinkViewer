@@ -109,6 +109,14 @@ public class Model {
 			myCell.topRightEdge.edgeBeingDebugged = myCellSelection.topRightEdge;
 			myCell.leftEdge.edgeBeingDebugged = myCellSelection.leftEdge;
 			myCell.rightEdge.edgeBeingDebugged = myCellSelection.rightEdge;
+			
+			myCell.topNode.nodeBeingDebugged = myCellSelection.topNode;
+			myCell.bottomNode.nodeBeingDebugged = myCellSelection.bottomNode;
+			myCell.topLeftNode.nodeBeingDebugged = myCellSelection.topLeftNode;
+			myCell.topRightNode.nodeBeingDebugged = myCellSelection.topRightNode;
+			myCell.bottomLeftNode.nodeBeingDebugged = myCellSelection.bottomLeftNode;
+			myCell.bottomRightNode.nodeBeingDebugged = myCellSelection.bottomRightNode;
+			
 			if (myCell.topOuterEdge != null) { myCell.topOuterEdge.edgeBeingDebugged = myCellSelection.topOuterEdge; }
 			if (myCell.bottomOuterEdge != null) { myCell.bottomOuterEdge.edgeBeingDebugged = myCellSelection.bottomOuterEdge; }
 			if (myCell.topLeftOuterEdge != null) { myCell.topLeftOuterEdge.edgeBeingDebugged = myCellSelection.topLeftOuterEdge; }
@@ -124,5 +132,9 @@ public class Model {
 		for (Map.Entry<Integer, Edge> edge : edges.entrySet()) {
 			edge.getValue().edgeBeingDebugged = false;
 		}
+		
+		for (Map.Entry<Integer, Node> node : nodes.entrySet()) {
+			node.getValue().nodeBeingDebugged = false;
+		} 
 	}
 }

@@ -4,7 +4,7 @@ public abstract class Node {
 	
 	protected static int countID = 0;
 	public int nodeID;
-	public boolean nodeBeingDebugged = true;
+	public boolean nodeBeingDebugged = false;
 	
 	Model model;
 	
