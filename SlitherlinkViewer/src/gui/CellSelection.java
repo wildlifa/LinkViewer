@@ -30,6 +30,8 @@ public class CellSelection {
 	public boolean topLeftNode;
 	public boolean topRightNode;
 	
+	public boolean selfCell;
+	
 	public CellSelection() {
 		
 		topLeftEdge = false;
@@ -59,6 +61,8 @@ public class CellSelection {
 		bottomNode = false;
 		topLeftNode = false;
 		topRightNode = false;
+		
+		selfCell = false;
 		
 	}
 }

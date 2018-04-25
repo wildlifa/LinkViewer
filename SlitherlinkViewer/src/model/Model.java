@@ -10,12 +10,10 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
-import gui.BufferedCanvas;
 import gui.CellSelection;
+import gui.NodeSelection;
 
-public class Model {
-	
-	BufferedCanvas canvas;
+public class Model {	
 
 	int diameter = 0;
 	public HashMap<Integer, Cell> cells = new HashMap<Integer, Cell>();
@@ -98,11 +96,13 @@ public class Model {
 		
 	}
 	
-	public void debugCell(int cellID, CellSelection myCellSelection, BufferedCanvas myCanvas) {
-		canvas = myCanvas;
+	public void debugCell(int cellID, CellSelection myCellSelection) {
 		resetDebugColors();
 		if (cells.get(cellID) != null) {
 			Cell myCell = cells.get(cellID);
+			
+			myCell.cellBeingDebugged = myCellSelection.selfCell;
+			
 			myCell.bottomLeftEdge.edgeBeingDebugged = myCellSelection.bottomLeftEdge;
 			myCell.bottomRightEdge.edgeBeingDebugged = myCellSelection.bottomRightEdge;
 			myCell.topLeftEdge.edgeBeingDebugged = myCellSelection.topLeftEdge;
@@ -133,6 +133,28 @@ public class Model {
 			
 		} else {
 			System.out.println("could not find cell with ID " + cellID);
+		}
+	}
+	
+	public void debugNodes(int nodeID, NodeSelection myNodeSelection) {
+		resetDebugColors();
+		if (nodes.get(nodeID) != null) {
+
+			Node myNode = nodes.get(nodeID);
+//			System.out.println(myNode.getClass());
+			if (myNode.getClass().equals("class model.UpNode")){
+				UpNode upNode = (UpNode) myNode;
+				upNode.bottomLeftEdge.edgeBeingDebugged = myNodeSelection.bottomLeftEdge;
+				upNode.bottomRightEdge.edgeBeingDebugged = myNodeSelection.bottomRightEdge;
+				upNode.topEdge.edgeBeingDebugged = myNodeSelection.topEdge;
+
+			}
+		
+			myNode.nodeBeingDebugged = myNodeSelection.selfNode;
+
+			
+		} else {
+			System.out.println("could not find node with ID " + nodeID);
 		}
 	}
 	

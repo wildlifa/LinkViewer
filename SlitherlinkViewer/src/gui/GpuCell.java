@@ -7,8 +7,8 @@ public class GpuCell {
 	Color nodeColor;
 	
 	public GpuCell(int x, int y, int r, Color myColor) {
-		this.x = x - 3;
-		this.y = y - 3;
+		this.x = x - 35;
+		this.y = y - 35;
 		this.r = r;
 		this.nodeColor = myColor;
 	}

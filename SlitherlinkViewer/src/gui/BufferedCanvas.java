@@ -84,14 +84,12 @@ public class BufferedCanvas extends Canvas implements Runnable {
 		
 		cells.clear();
 		for (Map.Entry<Integer, Cell> cell : model.cells.entrySet()) {
-			int modelX = (int) cell.getValue().topNode.getX();
-			int modelY = (int) ((cell.getValue().topNode.getY() + cell.getValue().bottomNode.getY()) / 2.0f);
-			int x = rescale(modelX, horisontalScale);
-			int y = rescale(modelY, verticalScale);
 			if (cell.getValue().cellBeingDebugged) {
-				cells.add(new GpuCell(x, y, 7, Color.MAGENTA));
-			} else {
-				cells.add(new GpuCell(x, y, 7, Color.BLACK));
+				int modelX = (int) cell.getValue().topNode.getX();
+				int modelY = (int) ((cell.getValue().topNode.getY() + cell.getValue().bottomNode.getY()) / 2.0f);
+				int x = rescale(modelX, horisontalScale);
+				int y = rescale(modelY, verticalScale);
+				cells.add(new GpuCell(x, y, 71, new Color(255, 200, 255)));
 			}
 			
 		}
