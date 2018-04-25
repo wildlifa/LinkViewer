@@ -72,7 +72,12 @@ public class BufferedCanvas extends Canvas implements Runnable {
 		for (Map.Entry<Integer, Node> node : model.nodes.entrySet()) {
 			int x = rescale(node.getValue().getX(), horisontalScale);
 			int y = rescale(node.getValue().getY(), verticalScale);
-			nodes.add(new GpuNode(x, y, 7, Color.BLACK));
+			if (node.getValue().nodeBeingDebugged) {
+				nodes.add(new GpuNode(x, y, 7, Color.MAGENTA));
+			} else {
+				nodes.add(new GpuNode(x, y, 7, Color.BLACK));
+			}
+			
 		}
 	}
 	

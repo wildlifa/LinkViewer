@@ -52,6 +52,13 @@ public class MainFrame extends JFrame {
 	JToggleButton bottomLeftOuterEdgeButton;
 	JToggleButton bottomRightOuterEdgeButton;
 	
+	JToggleButton topNodeButton;
+	JToggleButton bottomNodeButton;
+	JToggleButton topLeftNodeButton;
+	JToggleButton topRightNodeButton;
+	JToggleButton bottomLeftNodeButton;
+	JToggleButton bottomRightNodeButton;
+	
 	public MainFrame(Model model) {
 		
 		this.model = model;
@@ -203,35 +210,67 @@ public class MainFrame extends JFrame {
 			} 
 		} );
 		
-		JToggleButton toggleButton_11 = new JToggleButton(".");
-		toggleButton_11.setBounds(186, 86, 42, 41);
-		panel.add(toggleButton_11);
-		cellDebugButtons.add(toggleButton_11);
+		topNodeButton = new JToggleButton(".");
+		topNodeButton.setBounds(186, 86, 42, 41);
+		panel.add(topNodeButton);
+		cellDebugButtons.add(topNodeButton);
+		topNodeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
 		
-		JToggleButton toggleButton_12 = new JToggleButton(".");
-		toggleButton_12.setBounds(264, 138, 42, 41);
-		panel.add(toggleButton_12);
-		cellDebugButtons.add(toggleButton_12);
+		topRightNodeButton = new JToggleButton(".");
+		topRightNodeButton.setBounds(264, 138, 42, 41);
+		panel.add(topRightNodeButton);
+		cellDebugButtons.add(topRightNodeButton);
+		topRightNodeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
 		
-		JToggleButton toggleButton_13 = new JToggleButton(".");
-		toggleButton_13.setBounds(264, 241, 42, 41);
-		panel.add(toggleButton_13);
-		cellDebugButtons.add(toggleButton_13);
 		
-		JToggleButton toggleButton_14 = new JToggleButton(".");
-		toggleButton_14.setBounds(186, 293, 42, 41);
-		panel.add(toggleButton_14);
-		cellDebugButtons.add(toggleButton_14);
+		bottomRightNodeButton = new JToggleButton(".");
+		bottomRightNodeButton.setBounds(264, 241, 42, 41);
+		panel.add(bottomRightNodeButton);
+		cellDebugButtons.add(bottomRightNodeButton);
+		bottomRightNodeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
 		
-		JToggleButton toggleButton_15 = new JToggleButton(".");
-		toggleButton_15.setBounds(106, 244, 42, 41);
-		panel.add(toggleButton_15);
-		cellDebugButtons.add(toggleButton_15);
+		bottomNodeButton = new JToggleButton(".");
+		bottomNodeButton.setBounds(186, 293, 42, 41);
+		panel.add(bottomNodeButton);
+		cellDebugButtons.add(bottomNodeButton);
+		bottomNodeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
 		
-		JToggleButton toggleButton_16 = new JToggleButton(".");
-		toggleButton_16.setBounds(106, 140, 42, 41);
-		panel.add(toggleButton_16);
-		cellDebugButtons.add(toggleButton_16);
+		
+		bottomLeftNodeButton = new JToggleButton(".");
+		bottomLeftNodeButton.setBounds(106, 244, 42, 41);
+		panel.add(bottomLeftNodeButton);
+		cellDebugButtons.add(bottomLeftNodeButton);
+		bottomLeftNodeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
+		
+		topLeftNodeButton = new JToggleButton(".");
+		topLeftNodeButton.setBounds(106, 140, 42, 41);
+		panel.add(topLeftNodeButton);
+		cellDebugButtons.add(topLeftNodeButton);
+		topLeftNodeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateCellID();
+			} 
+		} );
 		
 		JToggleButton toggleButton_17 = new JToggleButton("O");
 		toggleButton_17.setBounds(285, 29, 50, 50);
@@ -365,12 +404,12 @@ public class MainFrame extends JFrame {
 		cellSelection.bottomRightCell = false;
 		cellSelection.bottomLeftCell = false;
 		
-		cellSelection.topNode = false;
-		cellSelection.bottomLeftNode = false;
-		cellSelection.bottomRightNode = false;
-		cellSelection.bottomNode = false;
-		cellSelection.topLeftNode = false;
-		cellSelection.topRightNode = false;
+		cellSelection.topNode = !topNodeButton.isSelected();
+		cellSelection.bottomLeftNode = !bottomLeftNodeButton.isSelected();
+		cellSelection.bottomRightNode = !bottomRightNodeButton.isSelected();
+		cellSelection.bottomNode = !bottomNodeButton.isSelected();
+		cellSelection.topLeftNode = !topLeftNodeButton.isSelected();
+		cellSelection.topRightNode = !topRightNodeButton.isSelected();
 	}
 	
 	public void updateCellID() {
