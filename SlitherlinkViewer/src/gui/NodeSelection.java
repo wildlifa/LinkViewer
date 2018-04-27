@@ -9,10 +9,10 @@ public class NodeSelection {
 	public boolean bottomLeftEdge;
 	public boolean topRightEdge;
 	
-	public boolean topCell;
-	public boolean bottomCell;
 	public boolean topRightCell;
 	public boolean topLeftCell;
+	public boolean bottomCell;
+	public boolean topCell;
 	public boolean bottomRightCell;
 	public boolean bottomLeftCell;
 	
@@ -27,10 +27,10 @@ public class NodeSelection {
 		bottomLeftEdge = false;
 		topRightEdge = false;		
 		
-		topCell = false;
-		bottomCell = false;
 		topRightCell = false;
 		topLeftCell = false;
+		bottomCell = false;
+		topCell = false;
 		bottomRightCell = false;
 		bottomLeftCell = false;
 		

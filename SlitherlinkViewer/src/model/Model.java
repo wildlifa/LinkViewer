@@ -145,6 +145,9 @@ public class Model {
 				if (upNode.bottomLeftEdge != null) upNode.bottomLeftEdge.edgeBeingDebugged = myNodeSelection.bottomLeftEdge;
 				if (upNode.bottomRightEdge != null) upNode.bottomRightEdge.edgeBeingDebugged = myNodeSelection.bottomRightEdge;
 				if (upNode.topEdge != null) upNode.topEdge.edgeBeingDebugged = myNodeSelection.topEdge;
+				if (upNode.bottomCell != null) upNode.bottomCell.cellBeingDebugged = myNodeSelection.bottomCell;
+				if (upNode.topLeftCell != null) upNode.topLeftCell.cellBeingDebugged = myNodeSelection.topLeftCell;
+				if (upNode.topRightCell != null) upNode.topRightCell.cellBeingDebugged = myNodeSelection.topRightCell;
 			}
 			
 			if (nodes.get(nodeID) instanceof model.DownNode){
@@ -152,6 +155,9 @@ public class Model {
 				if (downNode.bottomEdge != null) downNode.bottomEdge.edgeBeingDebugged = myNodeSelection.bottomEdge;
 				if (downNode.topLeftEdge != null) downNode.topLeftEdge.edgeBeingDebugged = myNodeSelection.topLeftEdge;
 				if (downNode.topRightEdge != null) downNode.topRightEdge.edgeBeingDebugged = myNodeSelection.topRightEdge;
+				if (downNode.topCell != null) downNode.topCell.cellBeingDebugged = myNodeSelection.topCell;
+				if (downNode.bottomLeftCell != null) downNode.bottomLeftCell.cellBeingDebugged = myNodeSelection.bottomLeftCell;
+				if (downNode.bottomRightCell != null) downNode.bottomRightCell.cellBeingDebugged = myNodeSelection.bottomRightCell;
 			}
 		
 			nodes.get(nodeID).nodeBeingDebugged = myNodeSelection.selfNode;
