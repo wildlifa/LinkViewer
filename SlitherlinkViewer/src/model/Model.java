@@ -140,17 +140,21 @@ public class Model {
 		resetDebugColors();
 		if (nodes.get(nodeID) != null) {
 
-			Node myNode = nodes.get(nodeID);
-//			System.out.println(myNode.getClass());
-			if (myNode.getClass().equals("class model.UpNode")){
-				UpNode upNode = (UpNode) myNode;
-				upNode.bottomLeftEdge.edgeBeingDebugged = myNodeSelection.bottomLeftEdge;
-				upNode.bottomRightEdge.edgeBeingDebugged = myNodeSelection.bottomRightEdge;
-				upNode.topEdge.edgeBeingDebugged = myNodeSelection.topEdge;
-
+			if (nodes.get(nodeID) instanceof model.UpNode){
+				UpNode upNode = (UpNode) nodes.get(nodeID);
+				if (upNode.bottomLeftEdge != null) upNode.bottomLeftEdge.edgeBeingDebugged = myNodeSelection.bottomLeftEdge;
+				if (upNode.bottomRightEdge != null) upNode.bottomRightEdge.edgeBeingDebugged = myNodeSelection.bottomRightEdge;
+				if (upNode.topEdge != null) upNode.topEdge.edgeBeingDebugged = myNodeSelection.topEdge;
+			}
+			
+			if (nodes.get(nodeID) instanceof model.DownNode){
+				DownNode downNode = (DownNode) nodes.get(nodeID);
+				if (downNode.bottomEdge != null) downNode.bottomEdge.edgeBeingDebugged = myNodeSelection.bottomEdge;
+				if (downNode.topLeftEdge != null) downNode.topLeftEdge.edgeBeingDebugged = myNodeSelection.topLeftEdge;
+				if (downNode.topRightEdge != null) downNode.topRightEdge.edgeBeingDebugged = myNodeSelection.topRightEdge;
 			}
 		
-			myNode.nodeBeingDebugged = myNodeSelection.selfNode;
+			nodes.get(nodeID).nodeBeingDebugged = myNodeSelection.selfNode;
 
 			
 		} else {
