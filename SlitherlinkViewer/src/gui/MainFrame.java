@@ -5,8 +5,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.text.DefaultFormatter;
 
 import model.Model;
@@ -19,7 +17,6 @@ import javax.swing.JSeparator;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -124,7 +121,15 @@ public class MainFrame extends JFrame {
 		contentPane.add(tabbedPane);
 		tabbedPane.addChangeListener(new ChangeListener() {
 	        public void stateChanged(ChangeEvent e) {
-	            System.out.println("Tab: " + tabbedPane.getSelectedIndex());
+	        	if (cellSpinner != null) {
+	        		System.out.println("Tab: " + tabbedPane.getSelectedIndex());
+	        		switch(tabbedPane.getSelectedIndex()) {
+	            		case 0: updateCellID();
+	            		break;
+	            		case 2: updateNodeID();
+	            		break;	            
+	        		}
+	        	}
 	        }
 	    });
 		
