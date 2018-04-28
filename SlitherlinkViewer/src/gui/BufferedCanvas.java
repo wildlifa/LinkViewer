@@ -66,7 +66,11 @@ public class BufferedCanvas extends Canvas implements Runnable {
 			if (edge.getValue().edgeBeingDebugged) {
 				lines.add(new GpuLine(x1, y1, x2, y2, Color.MAGENTA));
 			} else {
-				lines.add(new GpuLine(x1, y1, x2, y2, Color.BLACK));
+				if (edge.getValue().edgeOfInterest) {
+					lines.add(new GpuLine(x1, y1, x2, y2, Color.CYAN));
+				} else {
+					lines.add(new GpuLine(x1, y1, x2, y2, Color.BLACK));
+				}				
 			}
 		}
 		
@@ -77,7 +81,11 @@ public class BufferedCanvas extends Canvas implements Runnable {
 			if (node.getValue().nodeBeingDebugged) {
 				nodes.add(new GpuNode(x, y, 7, Color.MAGENTA));
 			} else {
-				nodes.add(new GpuNode(x, y, 7, Color.BLACK));
+				if (node.getValue().nodeOfInterest) {
+					nodes.add(new GpuNode(x, y, 7, Color.CYAN));	
+				} else {
+					nodes.add(new GpuNode(x, y, 7, Color.BLACK));	
+				}				
 			}
 			
 		}
@@ -90,6 +98,14 @@ public class BufferedCanvas extends Canvas implements Runnable {
 				int x = rescale(modelX, horisontalScale);
 				int y = rescale(modelY, verticalScale);
 				cells.add(new GpuCell(x, y, 71, new Color(255, 200, 255)));
+			} else {
+				if (cell.getValue().cellOfInterest) {
+					int modelX = (int) cell.getValue().topNode.getX();
+					int modelY = (int) ((cell.getValue().topNode.getY() + cell.getValue().bottomNode.getY()) / 2.0f);
+					int x = rescale(modelX, horisontalScale);
+					int y = rescale(modelY, verticalScale);
+					cells.add(new GpuCell(x, y, 71, Color.CYAN));
+				}
 			}
 			
 		}

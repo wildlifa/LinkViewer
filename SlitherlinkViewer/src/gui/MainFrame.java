@@ -144,8 +144,7 @@ public class MainFrame extends JFrame {
 		contentPane.add(tabbedPane);
 		tabbedPane.addChangeListener(new ChangeListener() {
 	        public void stateChanged(ChangeEvent e) {
-	        	if (cellSpinner != null) {
-	        		System.out.println("Tab: " + tabbedPane.getSelectedIndex());
+	        	if (cellSpinner != null) {	        		
 	        		switch(tabbedPane.getSelectedIndex()) {
 	            		case 0: updateCellID();
 	            		break;

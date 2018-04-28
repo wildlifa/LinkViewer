@@ -102,7 +102,7 @@ public class Model {
 		if (cells.get(cellID) != null) {
 			Cell myCell = cells.get(cellID);
 			
-			myCell.cellBeingDebugged = myCellSelection.selfCell;
+			myCell.cellOfInterest = myCellSelection.selfCell;
 			
 			myCell.bottomLeftEdge.edgeBeingDebugged = myCellSelection.bottomLeftEdge;
 			myCell.bottomRightEdge.edgeBeingDebugged = myCellSelection.bottomRightEdge;
@@ -161,7 +161,7 @@ public class Model {
 				if (downNode.bottomRightCell != null) downNode.bottomRightCell.cellBeingDebugged = myNodeSelection.bottomRightCell;
 			}
 		
-			nodes.get(nodeID).nodeBeingDebugged = myNodeSelection.selfNode;
+			nodes.get(nodeID).nodeOfInterest = myNodeSelection.selfNode;
 
 			
 		} else {
@@ -225,7 +225,7 @@ public class Model {
 				
 			}
 
-			edges.get(edgeID).edgeBeingDebugged = myEdgeSelection.selfEdge;
+			edges.get(edgeID).edgeOfInterest = myEdgeSelection.selfEdge;
 
 			
 		} else {
@@ -236,14 +236,17 @@ public class Model {
 	public void resetDebugColors() {
 		for (Map.Entry<Integer, Edge> edge : edges.entrySet()) {
 			edge.getValue().edgeBeingDebugged = false;
+			edge.getValue().edgeOfInterest = false;
 		}
 		
 		for (Map.Entry<Integer, Node> node : nodes.entrySet()) {
 			node.getValue().nodeBeingDebugged = false;
+			node.getValue().nodeOfInterest = false;
 		} 
 		
 		for (Map.Entry<Integer, Cell> cell : cells.entrySet()) {
 			cell.getValue().cellBeingDebugged = false;
+			cell.getValue().cellOfInterest = false;
 		} 
 	}
 }

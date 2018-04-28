@@ -5,6 +5,7 @@ public abstract class Edge {
 	protected static int countID = 0;
 	public int edgeID;
 	public boolean edgeBeingDebugged = false;
+	public boolean edgeOfInterest = false;
 	
 	Model model;
 	
