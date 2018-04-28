@@ -14,34 +14,36 @@ public class Cell {
 	public int cellID;
 	
 	Model model;
+	public boolean cellBeingDebugged = false;
+	public boolean cellOfInterest = false;
 	
-	PositiveEdge topLeftEdge = null;
-	PositiveEdge bottomRightEdge = null;
-	VerticalEdge leftEdge = null; 
-	VerticalEdge rightEdge = null;
-	NegativeEdge bottomLeftEdge = null;
-	NegativeEdge topRightEdge = null;
+	public PositiveEdge topLeftEdge = null;
+	public PositiveEdge bottomRightEdge = null;
+	public VerticalEdge leftEdge = null; 
+	public VerticalEdge rightEdge = null;
+	public NegativeEdge bottomLeftEdge = null;
+	public NegativeEdge topRightEdge = null;
 	
-	PositiveEdge topRightOuterEdge = null;
-	PositiveEdge bottomLeftOuterEdge = null;
-	VerticalEdge topOuterEdge = null; 
-	VerticalEdge bottomOuterEdge = null;
-	NegativeEdge bottomRightOuterEdge = null;
-	NegativeEdge topLeftOuterEdge = null;
+	public PositiveEdge topRightOuterEdge = null;
+	public PositiveEdge bottomLeftOuterEdge = null;
+	public VerticalEdge topOuterEdge = null; 
+	public VerticalEdge bottomOuterEdge = null;
+	public NegativeEdge bottomRightOuterEdge = null;
+	public NegativeEdge topLeftOuterEdge = null;
 	
-	Cell rightCell = null;
-	Cell leftCell = null;
-	Cell topRightCell = null;
-	Cell topLeftCell = null;
-	Cell bottomRightCell = null;
-	Cell bottomLeftCell = null;
+	public Cell rightCell = null;
+	public Cell leftCell = null;
+	public Cell topRightCell = null;
+	public Cell topLeftCell = null;
+	public Cell bottomRightCell = null;
+	public Cell bottomLeftCell = null;
 	
-	UpNode topNode = null;
-	UpNode bottomLeftNode = null;
-	UpNode bottomRightNode = null;
-	DownNode bottomNode = null;
-	DownNode topLeftNode = null;
-	DownNode topRightNode = null;
+	public UpNode topNode = null;
+	public UpNode bottomLeftNode = null;
+	public UpNode bottomRightNode = null;
+	public DownNode bottomNode = null;
+	public DownNode topLeftNode = null;
+	public DownNode topRightNode = null;
 		
 	
 	public Cell(Model aModel, String generationType) {
@@ -182,6 +184,12 @@ public class Cell {
 			bottomLeftEdge.topRightCell = this;
 			topRightEdge.bottomLeftCell = this;
 			
+			topLeftEdge.bottomLeftCell = leftCell;
+			bottomLeftEdge.topLeftCell = leftCell;
+			
+			leftCell.topRightEdge.bottomRightCell = this;
+			leftCell.bottomRightEdge.topRightCell = this;
+			
 			//  linking edges to edges
 			topLeftEdge.bottomEdge = leftEdge;
 			topLeftEdge.rightEdge = topRightEdge;
@@ -202,6 +210,9 @@ public class Cell {
 			
 			topRightEdge.bottomEdge = rightEdge;
 			topRightEdge.leftEdge = topLeftEdge;
+			
+			leftCell.bottomRightEdge.rightEdge = bottomLeftEdge;
+			leftCell.topRightEdge.rightEdge = topLeftEdge;
 			
 			topLeftOuterEdge = leftCell.topRightEdge;
 			bottomLeftOuterEdge = leftCell.bottomRightEdge;
@@ -264,6 +275,14 @@ public class Cell {
 			rightEdge.leftCell = this;
 			bottomLeftEdge.topRightCell = this;
 			topRightEdge.bottomLeftCell = this;
+			
+			leftEdge.bottomCell = bottomLeftCell;
+			rightEdge.bottomCell = bottomRightCell;
+			bottomRightEdge.bottomLeftCell = bottomLeftCell;
+			
+			bottomLeftCell.topLeftEdge.topRightCell = this;
+			bottomLeftCell.rightEdge.topCell = this;
+			bottomRightCell.topRightEdge.topLeftCell = this;
 
 			//  linking edges to edges
 			topLeftEdge.bottomEdge = leftEdge;
@@ -349,6 +368,14 @@ public class Cell {
 			bottomLeftEdge.topRightCell = this;
 			topRightEdge.bottomLeftCell = this;
 			
+			rightEdge.bottomCell = bottomRightCell;
+			topLeftEdge.bottomLeftCell = leftCell;
+			
+			bottomLeftCell.topLeftEdge.topRightCell = this;
+			bottomLeftCell.rightEdge.topCell = this;
+			bottomRightCell.topRightEdge.topLeftCell = this;
+			leftCell.topRightEdge.bottomRightCell = this;
+			
 			//  linking edges to edges
 			topLeftEdge.bottomEdge = leftEdge;
 			topLeftEdge.rightEdge = topRightEdge;
@@ -365,10 +392,14 @@ public class Cell {
 			topRightEdge.bottomEdge = rightEdge;
 			topRightEdge.leftEdge = topLeftEdge;
 			
+			bottomRightCell.topRightEdge.topEdge = rightEdge;
+			
 			topLeftOuterEdge = leftCell.topRightEdge;
 			bottomLeftOuterEdge = leftCell.bottomRightEdge;
 			bottomOuterEdge = bottomLeftCell.rightEdge;
 			bottomRightOuterEdge = bottomRightCell.topRightEdge;
+			
+			leftCell.topRightEdge.rightEdge = topLeftEdge;
 			
 			leftCell.topRightOuterEdge = topLeftEdge;
 			bottomRightCell.topOuterEdge = rightEdge;
@@ -430,6 +461,13 @@ public class Cell {
 			rightEdge.leftCell = this;
 			bottomLeftEdge.topRightCell = this;
 			topRightEdge.bottomLeftCell = this;
+			
+			leftEdge.topCell = topLeftCell;
+			rightEdge.topCell = topRightCell;
+			
+			topLeftCell.bottomLeftEdge.bottomRightCell = this;
+			topLeftCell.rightEdge.bottomCell = this;
+			topRightCell.bottomRightEdge.bottomLeftCell = this;
 
 			//  linking edges to edges
 			topLeftEdge.bottomEdge = leftEdge;
@@ -515,6 +553,14 @@ public class Cell {
 			bottomLeftEdge.topRightCell = this;
 			topRightEdge.bottomLeftCell = this;
 			
+			rightEdge.topCell = topRightCell;
+			bottomLeftEdge.topLeftCell = leftCell;
+			
+			topLeftCell.bottomLeftEdge.bottomRightCell = this;
+			topLeftCell.rightEdge.bottomCell = this;
+			topRightCell.bottomRightEdge.bottomLeftCell = this;
+			leftCell.bottomRightEdge.topRightCell = this;
+			
 			//  linking edges to edges
 			bottomLeftEdge.topEdge = leftEdge;
 			bottomLeftEdge.rightEdge = bottomRightEdge;
@@ -535,6 +581,9 @@ public class Cell {
 			topLeftOuterEdge = leftCell.topRightEdge;
 			topOuterEdge = topLeftCell.rightEdge;
 			topRightOuterEdge = topRightCell.bottomRightEdge;
+			
+			leftCell.bottomRightEdge.rightEdge = bottomLeftEdge;
+			topRightCell.bottomRightEdge.bottomEdge = rightEdge;
 			
 			leftCell.bottomRightOuterEdge = bottomLeftEdge;
 			topRightCell.bottomOuterEdge = rightEdge;
