@@ -34,10 +34,17 @@ public class MainFrame extends JFrame {
 	public Model model;
 	public ArrayList<JToggleButton> cellDebugButtons;
 	public ArrayList<JToggleButton> nodeDebugButtons;
+	public ArrayList<JToggleButton> edgeDebugButtons;
 	public CellSelection cellSelection;
 	public NodeSelection nodeSelection;
+	public EdgeSelection edgeSelection;
 	public int currentCellID = -1;
 	public int currentNodeID = -1;
+	public int currentEdgeID = -1;
+	
+	private JPanel edgePanel;
+	private JPanel cellPanel;
+	private JPanel nodePanel;
 
 	/**
 	 * Create the frame.
@@ -75,8 +82,6 @@ public class MainFrame extends JFrame {
 	
 	private JToggleButton selfCellButton;
 	
-	private NodeDebugPanel nodeDebugPanel;
-	
 	private JToggleButton selfNodeButton;
 	
 	private JToggleButton topCellForNodeButton;
@@ -93,17 +98,35 @@ public class MainFrame extends JFrame {
 	private JToggleButton topEdgeForNodeButton;
 	private JToggleButton bottomEdgeForNodeButton;
 	
-	JSpinner nodeSpinner;
+	private JToggleButton topNodeForEdgeButton;
+	private JToggleButton bottomNodeForEdgeButton;
+	
+	private JToggleButton topCellForEdgeButton;
+	private JToggleButton bottomCellForEdgeButton;
+	private JToggleButton leftCellForEdgeButton;
+	private JToggleButton rightCellForEdgeButton;
+	
+	private JToggleButton topLeftEdgeForEdgeButton;
+	private JToggleButton topRightEdgeForEdgeButton;
+	private JToggleButton bottomLeftEdgeForEdgeButton;
+	private JToggleButton bottomRightEdgeForEdgeButton;
+	
+	private JToggleButton selfEdgeButton;
+	
+	private JSpinner nodeSpinner;
 	private JSpinner cellSpinner;
+	private JSpinner edgeSpinner;
 	
 	public MainFrame(Model model) {
 		
 		this.model = model;
 		cellSelection = new CellSelection();
 		nodeSelection = new NodeSelection();
+		edgeSelection = new EdgeSelection();
 		
 		cellDebugButtons = new ArrayList<JToggleButton>();
 		nodeDebugButtons = new ArrayList<JToggleButton>();
+		edgeDebugButtons = new ArrayList<JToggleButton>();
 		
 		setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,6 +149,8 @@ public class MainFrame extends JFrame {
 	        		switch(tabbedPane.getSelectedIndex()) {
 	            		case 0: updateCellID();
 	            		break;
+	            		case 1: updateEdgeID();
+	            		break;
 	            		case 2: updateNodeID();
 	            		break;	            
 	        		}
@@ -133,13 +158,13 @@ public class MainFrame extends JFrame {
 	        }
 	    });
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("cell debug", null, panel, null);
-		panel.setLayout(null);
+		cellPanel = new JPanel();
+		tabbedPane.addTab("cell debug", null, cellPanel, null);
+		cellPanel.setLayout(null);
 		
 		leftEdgeButton = new JToggleButton("|");
 		leftEdgeButton.setBounds(106, 192, 42, 41);
-		panel.add(leftEdgeButton);
+		cellPanel.add(leftEdgeButton);
 		cellDebugButtons.add(leftEdgeButton);
 		leftEdgeButton.addActionListener(new ActionListener() { 
 				public void actionPerformed(ActionEvent e) { 
@@ -149,7 +174,7 @@ public class MainFrame extends JFrame {
 		
 		topLeftEdgeButton = new JToggleButton("/");
 		topLeftEdgeButton.setBounds(134, 86, 42, 41);
-		panel.add(topLeftEdgeButton);
+		cellPanel.add(topLeftEdgeButton);
 		cellDebugButtons.add(topLeftEdgeButton);
 		topLeftEdgeButton.addActionListener(new ActionListener() { 
 				public void actionPerformed(ActionEvent e) { 
@@ -159,7 +184,7 @@ public class MainFrame extends JFrame {
 		
 		topRightEdgeButton = new JToggleButton("\\");
 		topRightEdgeButton.setBounds(238, 86, 42, 41);
-		panel.add(topRightEdgeButton);
+		cellPanel.add(topRightEdgeButton);
 		cellDebugButtons.add(topRightEdgeButton);
 		topRightEdgeButton.addActionListener(new ActionListener() { 
 				public void actionPerformed(ActionEvent e) { 
@@ -169,7 +194,7 @@ public class MainFrame extends JFrame {
 		
 		bottomLeftEdgeButton = new JToggleButton("\\");
 		bottomLeftEdgeButton.setBounds(134, 293, 42, 41);
-		panel.add(bottomLeftEdgeButton);
+		cellPanel.add(bottomLeftEdgeButton);
 		cellDebugButtons.add(bottomLeftEdgeButton);
 		bottomLeftEdgeButton.addActionListener(new ActionListener() { 
 				public void actionPerformed(ActionEvent e) { 
@@ -179,7 +204,7 @@ public class MainFrame extends JFrame {
 		
 		bottomRightEdgeButton = new JToggleButton("/");
 		bottomRightEdgeButton.setBounds(238, 293, 42, 41);
-		panel.add(bottomRightEdgeButton);
+		cellPanel.add(bottomRightEdgeButton);
 		cellDebugButtons.add(bottomRightEdgeButton);
 		bottomRightEdgeButton.addActionListener(new ActionListener() { 
 				public void actionPerformed(ActionEvent e) { 
@@ -189,7 +214,7 @@ public class MainFrame extends JFrame {
 		
 		rightEdgeButton = new JToggleButton("|");
 		rightEdgeButton.setBounds(264, 192, 42, 41);
-		panel.add(rightEdgeButton);
+		cellPanel.add(rightEdgeButton);
 		cellDebugButtons.add(rightEdgeButton);
 		rightEdgeButton.addActionListener(new ActionListener() { 
 				public void actionPerformed(ActionEvent e) { 
@@ -199,7 +224,7 @@ public class MainFrame extends JFrame {
 		
 		leftCellButton = new JToggleButton("O");
 		leftCellButton.setBounds(43, 187, 50, 50);
-		panel.add(leftCellButton);
+		cellPanel.add(leftCellButton);
 		cellDebugButtons.add(leftCellButton);
 		leftCellButton.addActionListener(new ActionListener() { 
 				public void actionPerformed(ActionEvent e) { 
@@ -209,7 +234,7 @@ public class MainFrame extends JFrame {
 		
 		topLeftOuterEdgeButton = new JToggleButton("\\");
 		topLeftOuterEdgeButton.setBounds(58, 99, 42, 41);
-		panel.add(topLeftOuterEdgeButton);
+		cellPanel.add(topLeftOuterEdgeButton);
 		cellDebugButtons.add(topLeftOuterEdgeButton);
 		topLeftOuterEdgeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -219,7 +244,7 @@ public class MainFrame extends JFrame {
 		
 		bottomRightOuterEdgeButton = new JToggleButton("\\");
 		bottomRightOuterEdgeButton.setBounds(310, 282, 42, 41);
-		panel.add(bottomRightOuterEdgeButton);
+		cellPanel.add(bottomRightOuterEdgeButton);
 		cellDebugButtons.add(bottomRightOuterEdgeButton);
 		bottomRightOuterEdgeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -229,7 +254,7 @@ public class MainFrame extends JFrame {
 		
 		topOuterEdgeButton = new JToggleButton("|");
 		topOuterEdgeButton.setBounds(186, 34, 42, 41);
-		panel.add(topOuterEdgeButton);
+		cellPanel.add(topOuterEdgeButton);
 		cellDebugButtons.add(topOuterEdgeButton);
 		topOuterEdgeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -239,7 +264,7 @@ public class MainFrame extends JFrame {
 		
 		bottomOuterEdgeButton = new JToggleButton("|");
 		bottomOuterEdgeButton.setBounds(186, 345, 42, 41);
-		panel.add(bottomOuterEdgeButton);
+		cellPanel.add(bottomOuterEdgeButton);
 		cellDebugButtons.add(bottomOuterEdgeButton);
 		bottomOuterEdgeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -249,7 +274,7 @@ public class MainFrame extends JFrame {
 		
 		topRightOuterEdgeButton = new JToggleButton("/");
 		topRightOuterEdgeButton.setBounds(310, 99, 42, 41);
-		panel.add(topRightOuterEdgeButton);
+		cellPanel.add(topRightOuterEdgeButton);
 		cellDebugButtons.add(topRightOuterEdgeButton);
 		topRightOuterEdgeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -259,7 +284,7 @@ public class MainFrame extends JFrame {
 		
 		bottomLeftOuterEdgeButton = new JToggleButton("/");
 		bottomLeftOuterEdgeButton.setBounds(58, 282, 42, 41);
-		panel.add(bottomLeftOuterEdgeButton);
+		cellPanel.add(bottomLeftOuterEdgeButton);
 		cellDebugButtons.add(bottomLeftOuterEdgeButton);
 		bottomLeftOuterEdgeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -269,7 +294,7 @@ public class MainFrame extends JFrame {
 		
 		topNodeButton = new JToggleButton(".");
 		topNodeButton.setBounds(186, 86, 42, 41);
-		panel.add(topNodeButton);
+		cellPanel.add(topNodeButton);
 		cellDebugButtons.add(topNodeButton);
 		topNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -279,7 +304,7 @@ public class MainFrame extends JFrame {
 		
 		topRightNodeButton = new JToggleButton(".");
 		topRightNodeButton.setBounds(264, 138, 42, 41);
-		panel.add(topRightNodeButton);
+		cellPanel.add(topRightNodeButton);
 		cellDebugButtons.add(topRightNodeButton);
 		topRightNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -290,7 +315,7 @@ public class MainFrame extends JFrame {
 		
 		bottomRightNodeButton = new JToggleButton(".");
 		bottomRightNodeButton.setBounds(264, 241, 42, 41);
-		panel.add(bottomRightNodeButton);
+		cellPanel.add(bottomRightNodeButton);
 		cellDebugButtons.add(bottomRightNodeButton);
 		bottomRightNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -300,7 +325,7 @@ public class MainFrame extends JFrame {
 		
 		bottomNodeButton = new JToggleButton(".");
 		bottomNodeButton.setBounds(186, 293, 42, 41);
-		panel.add(bottomNodeButton);
+		cellPanel.add(bottomNodeButton);
 		cellDebugButtons.add(bottomNodeButton);
 		bottomNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -311,7 +336,7 @@ public class MainFrame extends JFrame {
 		
 		bottomLeftNodeButton = new JToggleButton(".");
 		bottomLeftNodeButton.setBounds(106, 244, 42, 41);
-		panel.add(bottomLeftNodeButton);
+		cellPanel.add(bottomLeftNodeButton);
 		cellDebugButtons.add(bottomLeftNodeButton);
 		bottomLeftNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -321,7 +346,7 @@ public class MainFrame extends JFrame {
 		
 		topLeftNodeButton = new JToggleButton(".");
 		topLeftNodeButton.setBounds(106, 140, 42, 41);
-		panel.add(topLeftNodeButton);
+		cellPanel.add(topLeftNodeButton);
 		cellDebugButtons.add(topLeftNodeButton);
 		topLeftNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -331,7 +356,7 @@ public class MainFrame extends JFrame {
 		
 		topRightCellButton = new JToggleButton("O");
 		topRightCellButton.setBounds(285, 29, 50, 50);
-		panel.add(topRightCellButton);
+		cellPanel.add(topRightCellButton);
 		cellDebugButtons.add(topRightCellButton);
 		topRightCellButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -341,7 +366,7 @@ public class MainFrame extends JFrame {
 		
 		topLeftCellButton = new JToggleButton("O");
 		topLeftCellButton.setBounds(76, 29, 50, 50);
-		panel.add(topLeftCellButton);
+		cellPanel.add(topLeftCellButton);
 		cellDebugButtons.add(topLeftCellButton);
 		topLeftCellButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -351,7 +376,7 @@ public class MainFrame extends JFrame {
 		
 		bottomLeftCellButton = new JToggleButton("O");
 		bottomLeftCellButton.setBounds(76, 343, 50, 50);
-		panel.add(bottomLeftCellButton);
+		cellPanel.add(bottomLeftCellButton);
 		cellDebugButtons.add(bottomLeftCellButton);
 		bottomLeftCellButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -361,7 +386,7 @@ public class MainFrame extends JFrame {
 		
 		bottomRightCellButton = new JToggleButton("O");
 		bottomRightCellButton.setBounds(285, 345, 50, 50);
-		panel.add(bottomRightCellButton);
+		cellPanel.add(bottomRightCellButton);
 		cellDebugButtons.add(bottomRightCellButton);
 		bottomRightCellButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -371,7 +396,7 @@ public class MainFrame extends JFrame {
 		
 		rightCellButton = new JToggleButton("O");
 		rightCellButton.setBounds(316, 187, 50, 50);
-		panel.add(rightCellButton);
+		cellPanel.add(rightCellButton);
 		cellDebugButtons.add(rightCellButton);
 		rightCellButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -381,7 +406,7 @@ public class MainFrame extends JFrame {
 		
 		selfCellButton = new JToggleButton("O");
 		selfCellButton.setBounds(186, 187, 50, 50);
-		panel.add(selfCellButton);
+		cellPanel.add(selfCellButton);
 		cellDebugButtons.add(selfCellButton);
 		selfCellButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -391,11 +416,11 @@ public class MainFrame extends JFrame {
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 410, 413, 2);
-		panel.add(separator);
+		cellPanel.add(separator);
 		
 		JButton showAllButton = new JButton("show all");
 		showAllButton.setBounds(43, 430, 133, 33);
-		panel.add(showAllButton);
+		cellPanel.add(showAllButton);
 		showAllButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				for (JToggleButton aButton : cellDebugButtons) {
@@ -407,7 +432,7 @@ public class MainFrame extends JFrame {
 		
 		JButton hideAllButton = new JButton("hide all");
 		hideAllButton.setBounds(232, 430, 150, 33);
-		panel.add(hideAllButton);
+		cellPanel.add(hideAllButton);
 		hideAllButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				for (JToggleButton aButton : cellDebugButtons) {
@@ -422,11 +447,11 @@ public class MainFrame extends JFrame {
 		JLabel lblId = new JLabel("ID");
 		lblId.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblId.setBounds(134, 487, 27, 31);
-		panel.add(lblId);
+		cellPanel.add(lblId);
 		
 		cellSpinner = new JSpinner();
 		cellSpinner.setBounds(164, 485, 116, 33);
-		panel.add(cellSpinner);
+		cellPanel.add(cellSpinner);
 		JComponent cellComp = cellSpinner.getEditor();
 	    JFormattedTextField cellField = (JFormattedTextField) cellComp.getComponent(0);
 	    DefaultFormatter cellFormatter = (DefaultFormatter) cellField.getFormatter();
@@ -438,17 +463,148 @@ public class MainFrame extends JFrame {
 	        }
 	    });
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("edge debug", null, panel_1, null);
+		edgePanel = new JPanel();
+		tabbedPane.addTab("edge debug", null, edgePanel, null);
+		edgePanel.setLayout(null);
 		
-		nodeDebugPanel = new NodeDebugPanel();
-		tabbedPane.addTab("node debug", null, nodeDebugPanel, null);
-		nodeDebugPanel.setLayout(null);
+		JButton button = new JButton("show all");
+		button.setBounds(44, 434, 133, 33);
+		edgePanel.add(button);
+		
+		JButton button_1 = new JButton("hide all");
+		button_1.setBounds(233, 434, 150, 33);
+		edgePanel.add(button_1);
+		
+		JLabel label_1 = new JLabel("ID");
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		label_1.setBounds(135, 491, 27, 31);
+		edgePanel.add(label_1);
+		
+		edgeSpinner = new JSpinner();
+		edgeSpinner.setBounds(165, 489, 116, 33);
+		edgePanel.add(edgeSpinner);
+		JComponent edgeComp = edgeSpinner.getEditor();
+	    JFormattedTextField edgeField = (JFormattedTextField) edgeComp.getComponent(0);
+	    DefaultFormatter edgeFormatter = (DefaultFormatter) edgeField.getFormatter();
+	    edgeFormatter.setCommitsOnValidEdit(true);
+	    edgeSpinner.addChangeListener(new ChangeListener() {
+	        @Override
+	        public void stateChanged(ChangeEvent e) {
+	            updateEdgeID();
+	        }
+	    });
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(0, 409, 413, 2);
+		edgePanel.add(separator_2);
+		
+		selfEdgeButton = new JToggleButton("X");
+		selfEdgeButton.setBounds(181, 186, 50, 50);
+		edgePanel.add(selfEdgeButton);
+		selfEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		bottomRightEdgeForEdgeButton = new JToggleButton("\\");
+		bottomRightEdgeForEdgeButton.setBounds(254, 263, 42, 41);
+		edgePanel.add(bottomRightEdgeForEdgeButton);
+		bottomRightEdgeForEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		topLeftEdgeForEdgeButton = new JToggleButton("\\");
+		topLeftEdgeForEdgeButton.setBounds(117, 119, 42, 41);
+		edgePanel.add(topLeftEdgeForEdgeButton);
+		topLeftEdgeForEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		bottomLeftEdgeForEdgeButton = new JToggleButton("/");
+		bottomLeftEdgeForEdgeButton.setBounds(117, 263, 42, 41);
+		edgePanel.add(bottomLeftEdgeForEdgeButton);
+		bottomLeftEdgeForEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		topRightEdgeForEdgeButton = new JToggleButton("/");
+		topRightEdgeForEdgeButton.setBounds(254, 119, 42, 41);
+		edgePanel.add(topRightEdgeForEdgeButton);
+		topRightEdgeForEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		topCellForEdgeButton = new JToggleButton("O");
+		topCellForEdgeButton.setBounds(181, 78, 50, 50);
+		edgePanel.add(topCellForEdgeButton);
+		topCellForEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		bottomCellForEdgeButton = new JToggleButton("O");
+		bottomCellForEdgeButton.setBounds(182, 291, 50, 50);
+		edgePanel.add(bottomCellForEdgeButton);
+		bottomCellForEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		rightCellForEdgeButton = new JToggleButton("O");
+		rightCellForEdgeButton.setBounds(265, 186, 50, 50);
+		edgePanel.add(rightCellForEdgeButton);
+		rightCellForEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		leftCellForEdgeButton = new JToggleButton("O");
+		leftCellForEdgeButton.setBounds(99, 186, 50, 50);
+		edgePanel.add(leftCellForEdgeButton);
+		leftCellForEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		topNodeForEdgeButton = new JToggleButton(".");
+		topNodeForEdgeButton.setBounds(185, 134, 42, 41);
+		edgePanel.add(topNodeForEdgeButton);
+		topNodeForEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		bottomNodeForEdgeButton = new JToggleButton(".");
+		bottomNodeForEdgeButton.setBounds(186, 242, 42, 41);
+		edgePanel.add(bottomNodeForEdgeButton);
+		bottomNodeForEdgeButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				updateEdgeID();
+			} 
+		} );
+		
+		nodePanel = new JPanel();
+		tabbedPane.addTab("node debug", null, nodePanel, null);
+		nodePanel.setLayout(null);
 		
 		
 		selfNodeButton = new JToggleButton(".");
 		selfNodeButton.setBounds(188, 172, 42, 41);
-		nodeDebugPanel.add(selfNodeButton);
+		nodePanel.add(selfNodeButton);
 		nodeDebugButtons.add(selfNodeButton);
 		selfNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -459,7 +615,7 @@ public class MainFrame extends JFrame {
 		
 		topCellForNodeButton = new JToggleButton("O");
 		topCellForNodeButton.setBounds(183, 45, 50, 50);
-		nodeDebugPanel.add(topCellForNodeButton);
+		nodePanel.add(topCellForNodeButton);
 		nodeDebugButtons.add(topCellForNodeButton);
 		topCellForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -469,7 +625,7 @@ public class MainFrame extends JFrame {
 		
 		bottomCellForNodeButton = new JToggleButton("O");
 		bottomCellForNodeButton.setBounds(184, 293, 50, 50);
-		nodeDebugPanel.add(bottomCellForNodeButton);
+		nodePanel.add(bottomCellForNodeButton);
 		nodeDebugButtons.add(bottomCellForNodeButton);
 		bottomCellForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -479,7 +635,7 @@ public class MainFrame extends JFrame {
 		
 		topLeftCellForNodeButton = new JToggleButton("O");
 		topLeftCellForNodeButton.setBounds(49, 64, 50, 50);
-		nodeDebugPanel.add(topLeftCellForNodeButton);
+		nodePanel.add(topLeftCellForNodeButton);
 		nodeDebugButtons.add(topLeftCellForNodeButton);
 		topLeftCellForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -489,7 +645,7 @@ public class MainFrame extends JFrame {
 		
 		topRightCellForNodeButton = new JToggleButton("O");
 		topRightCellForNodeButton.setBounds(315, 64, 50, 50);
-		nodeDebugPanel.add(topRightCellForNodeButton);
+		nodePanel.add(topRightCellForNodeButton);
 		nodeDebugButtons.add(topRightCellForNodeButton);
 		topRightCellForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -499,7 +655,7 @@ public class MainFrame extends JFrame {
 		
 		bottomLeftCellForNodeButton = new JToggleButton("O");
 		bottomLeftCellForNodeButton.setBounds(49, 272, 50, 50);
-		nodeDebugPanel.add(bottomLeftCellForNodeButton);
+		nodePanel.add(bottomLeftCellForNodeButton);
 		nodeDebugButtons.add(bottomLeftCellForNodeButton);
 		bottomLeftCellForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -509,7 +665,7 @@ public class MainFrame extends JFrame {
 		
 		bottomRightCellForNodeButton = new JToggleButton("O");
 		bottomRightCellForNodeButton.setBounds(315, 272, 50, 50);
-		nodeDebugPanel.add(bottomRightCellForNodeButton);
+		nodePanel.add(bottomRightCellForNodeButton);
 		nodeDebugButtons.add(bottomRightCellForNodeButton);
 		bottomRightCellForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -519,7 +675,7 @@ public class MainFrame extends JFrame {
 		
 		bottomLeftEdgeForNodeButton = new JToggleButton("/");
 		bottomLeftEdgeForNodeButton.setBounds(106, 226, 42, 41);
-		nodeDebugPanel.add(bottomLeftEdgeForNodeButton);
+		nodePanel.add(bottomLeftEdgeForNodeButton);
 		nodeDebugButtons.add(bottomLeftEdgeForNodeButton);
 		bottomLeftEdgeForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -529,7 +685,7 @@ public class MainFrame extends JFrame {
 		
 		topRightEdgeForNodeButton = new JToggleButton("/");
 		topRightEdgeForNodeButton.setBounds(273, 122, 42, 41);
-		nodeDebugPanel.add(topRightEdgeForNodeButton);
+		nodePanel.add(topRightEdgeForNodeButton);
 		nodeDebugButtons.add(topRightEdgeForNodeButton);
 		topRightEdgeForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -539,7 +695,7 @@ public class MainFrame extends JFrame {
 		
 		topLeftEdgeForNodeButton = new JToggleButton("\\");
 		topLeftEdgeForNodeButton.setBounds(104, 121, 42, 41);
-		nodeDebugPanel.add(topLeftEdgeForNodeButton);
+		nodePanel.add(topLeftEdgeForNodeButton);
 		nodeDebugButtons.add(topLeftEdgeForNodeButton);
 		topLeftEdgeForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -549,7 +705,7 @@ public class MainFrame extends JFrame {
 		
 		bottomRightEdgeForNodeButton = new JToggleButton("\\");
 		bottomRightEdgeForNodeButton.setBounds(273, 226, 42, 41);
-		nodeDebugPanel.add(bottomRightEdgeForNodeButton);
+		nodePanel.add(bottomRightEdgeForNodeButton);
 		nodeDebugButtons.add(bottomRightEdgeForNodeButton);
 		bottomRightEdgeForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -559,7 +715,7 @@ public class MainFrame extends JFrame {
 		
 		topEdgeForNodeButton = new JToggleButton("|");
 		topEdgeForNodeButton.setBounds(188, 120, 42, 41);
-		nodeDebugPanel.add(topEdgeForNodeButton);
+		nodePanel.add(topEdgeForNodeButton);
 		nodeDebugButtons.add(topEdgeForNodeButton);
 		topEdgeForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -569,7 +725,7 @@ public class MainFrame extends JFrame {
 		
 		bottomEdgeForNodeButton = new JToggleButton("|");
 		bottomEdgeForNodeButton.setBounds(188, 226, 42, 41);
-		nodeDebugPanel.add(bottomEdgeForNodeButton);
+		nodePanel.add(bottomEdgeForNodeButton);
 		nodeDebugButtons.add(bottomEdgeForNodeButton);
 		bottomEdgeForNodeButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -579,11 +735,11 @@ public class MainFrame extends JFrame {
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(0, 384, 413, 2);
-		nodeDebugPanel.add(separator_1);
+		nodePanel.add(separator_1);
 		
 		JButton showAllNodeDebugButton = new JButton("show all");
 		showAllNodeDebugButton.setBounds(49, 403, 133, 33);
-		nodeDebugPanel.add(showAllNodeDebugButton);
+		nodePanel.add(showAllNodeDebugButton);
 		showAllNodeDebugButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				for (JToggleButton aButton : nodeDebugButtons) {
@@ -595,7 +751,7 @@ public class MainFrame extends JFrame {
 		
 		JButton hideAllNodeDebugButton = new JButton("hide all");
 		hideAllNodeDebugButton.setBounds(234, 403, 150, 33);
-		nodeDebugPanel.add(hideAllNodeDebugButton);
+		nodePanel.add(hideAllNodeDebugButton);
 		hideAllNodeDebugButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				for (JToggleButton aButton : nodeDebugButtons) {
@@ -608,12 +764,12 @@ public class MainFrame extends JFrame {
 		JLabel label = new JLabel("ID");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		label.setBounds(133, 473, 27, 31);
-		nodeDebugPanel.add(label);
+		nodePanel.add(label);
 		
 		nodeSpinner = new JSpinner();
 		nodeSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		nodeSpinner.setBounds(170, 474, 116, 33);
-		nodeDebugPanel.add(nodeSpinner);
+		nodePanel.add(nodeSpinner);
 		JComponent nodeComp = nodeSpinner.getEditor();
 	    JFormattedTextField nodeField = (JFormattedTextField) nodeComp.getComponent(0);
 	    DefaultFormatter nodeFormatter = (DefaultFormatter) nodeField.getFormatter();
@@ -691,6 +847,25 @@ public class MainFrame extends JFrame {
 
 	}
 	
+	private void updateEdgeSelection() {
+		
+		edgeSelection.bottomCell = !bottomCellForEdgeButton.isSelected();
+		edgeSelection.topCell = !topCellForEdgeButton.isSelected();
+		edgeSelection.leftCell = !leftCellForEdgeButton.isSelected();
+		edgeSelection.rightCell = !rightCellForEdgeButton.isSelected();
+
+		edgeSelection.bottomLeftEdge = !bottomLeftEdgeForEdgeButton.isSelected();
+		edgeSelection.bottomRightEdge = !bottomRightEdgeForEdgeButton.isSelected();
+		edgeSelection.topLeftEdge = !topLeftEdgeForEdgeButton.isSelected();
+		edgeSelection.topRightEdge = !topRightEdgeForEdgeButton.isSelected();
+		
+		edgeSelection.topNode = !topNodeForEdgeButton.isSelected();
+		edgeSelection.bottomNode = !bottomNodeForEdgeButton.isSelected();
+		
+		edgeSelection.selfEdge = !selfEdgeButton.isSelected();
+
+	}
+	
 	public void updateCellID() {
 		try {
 			currentCellID = (int) cellSpinner.getValue();
@@ -709,5 +884,15 @@ public class MainFrame extends JFrame {
 		}
 		updateNodeSelection();
 		model.debugNodes(currentNodeID, nodeSelection);
+	}
+	
+	public void updateEdgeID() {
+		try {
+			currentEdgeID = (int) edgeSpinner.getValue();
+		} catch	(NumberFormatException nfe) {
+			currentEdgeID = -1;
+		}
+		updateEdgeSelection();
+		model.debugEdges(currentEdgeID, edgeSelection);
 	}
 }

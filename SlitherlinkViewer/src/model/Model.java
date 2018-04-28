@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import gui.CellSelection;
+import gui.EdgeSelection;
 import gui.NodeSelection;
 
 public class Model {	
@@ -165,6 +166,70 @@ public class Model {
 			
 		} else {
 			System.out.println("could not find node with ID " + nodeID);
+		}
+	}
+	
+	public void debugEdges(int edgeID, EdgeSelection myEdgeSelection) {
+		resetDebugColors();
+		if (edges.get(edgeID) != null) {
+
+			if (edges.get(edgeID) instanceof model.VerticalEdge){
+				VerticalEdge verticalEdge = (VerticalEdge) edges.get(edgeID);
+				if (verticalEdge.bottomLeftEdge != null) verticalEdge.bottomLeftEdge.edgeBeingDebugged = myEdgeSelection.bottomLeftEdge;
+				if (verticalEdge.bottomRightEdge != null) verticalEdge.bottomRightEdge.edgeBeingDebugged = myEdgeSelection.bottomRightEdge;
+				if (verticalEdge.topRightEdge != null) verticalEdge.topRightEdge.edgeBeingDebugged = myEdgeSelection.topRightEdge;
+				if (verticalEdge.topLeftEdge != null) verticalEdge.topLeftEdge.edgeBeingDebugged = myEdgeSelection.topLeftEdge;
+				
+				if (verticalEdge.topCell != null) verticalEdge.topCell.cellBeingDebugged = myEdgeSelection.topCell;
+				if (verticalEdge.bottomCell != null) verticalEdge.bottomCell.cellBeingDebugged = myEdgeSelection.bottomCell;
+				if (verticalEdge.leftCell != null) verticalEdge.leftCell.cellBeingDebugged = myEdgeSelection.leftCell;
+				if (verticalEdge.rightCell != null) verticalEdge.rightCell.cellBeingDebugged = myEdgeSelection.rightCell;
+				
+				if (verticalEdge.upNode != null) verticalEdge.upNode.nodeBeingDebugged = myEdgeSelection.bottomNode;
+				if (verticalEdge.downNode != null) verticalEdge.downNode.nodeBeingDebugged = myEdgeSelection.topNode;
+				
+
+			}
+			
+			if (edges.get(edgeID) instanceof model.PositiveEdge){
+				PositiveEdge positiveEdge = (PositiveEdge) edges.get(edgeID);
+				if (positiveEdge.topEdge != null) positiveEdge.topEdge.edgeBeingDebugged = myEdgeSelection.topRightEdge;
+				if (positiveEdge.bottomEdge != null) positiveEdge.bottomEdge.edgeBeingDebugged = myEdgeSelection.bottomLeftEdge;
+				if (positiveEdge.rightEdge != null) positiveEdge.rightEdge.edgeBeingDebugged = myEdgeSelection.bottomRightEdge;
+				if (positiveEdge.leftEdge != null) positiveEdge.leftEdge.edgeBeingDebugged = myEdgeSelection.topLeftEdge;
+				
+				if (positiveEdge.topLeftCell != null) positiveEdge.topLeftCell.cellBeingDebugged = myEdgeSelection.topCell;
+				if (positiveEdge.bottomRightCell != null) positiveEdge.bottomRightCell.cellBeingDebugged = myEdgeSelection.bottomCell;
+				if (positiveEdge.bottomLeftCell != null) positiveEdge.bottomLeftCell.cellBeingDebugged = myEdgeSelection.leftCell;
+				if (positiveEdge.topRightCell != null) positiveEdge.topRightCell.cellBeingDebugged = myEdgeSelection.rightCell;
+				
+				if (positiveEdge.upNode != null) positiveEdge.upNode.nodeBeingDebugged = myEdgeSelection.topNode;
+				if (positiveEdge.downNode != null) positiveEdge.downNode.nodeBeingDebugged = myEdgeSelection.bottomNode;
+
+			}
+			
+			if (edges.get(edgeID) instanceof model.NegativeEdge){
+				NegativeEdge negativeEdge = (NegativeEdge) edges.get(edgeID);
+				if (negativeEdge.topEdge != null) negativeEdge.topEdge.edgeBeingDebugged = myEdgeSelection.topLeftEdge;
+				if (negativeEdge.bottomEdge != null) negativeEdge.bottomEdge.edgeBeingDebugged = myEdgeSelection.bottomRightEdge;
+				if (negativeEdge.rightEdge != null) negativeEdge.rightEdge.edgeBeingDebugged = myEdgeSelection.topRightEdge;
+				if (negativeEdge.leftEdge != null) negativeEdge.leftEdge.edgeBeingDebugged = myEdgeSelection.bottomLeftEdge;
+				
+				if (negativeEdge.topLeftCell != null) negativeEdge.topLeftCell.cellBeingDebugged = myEdgeSelection.leftCell;
+				if (negativeEdge.bottomRightCell != null) negativeEdge.bottomRightCell.cellBeingDebugged = myEdgeSelection.rightCell;
+				if (negativeEdge.bottomLeftCell != null) negativeEdge.bottomLeftCell.cellBeingDebugged = myEdgeSelection.bottomCell;
+				if (negativeEdge.topRightCell != null) negativeEdge.topRightCell.cellBeingDebugged = myEdgeSelection.topCell;
+				
+				if (negativeEdge.upNode != null) negativeEdge.upNode.nodeBeingDebugged = myEdgeSelection.topNode;
+				if (negativeEdge.downNode != null) negativeEdge.downNode.nodeBeingDebugged = myEdgeSelection.bottomNode;
+				
+			}
+
+			edges.get(edgeID).edgeBeingDebugged = myEdgeSelection.selfEdge;
+
+			
+		} else {
+			System.out.println("could not find edge with ID " + edgeID);
 		}
 	}
 	
